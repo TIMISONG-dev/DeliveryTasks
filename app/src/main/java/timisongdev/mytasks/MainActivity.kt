@@ -125,8 +125,8 @@ fun Greeting() {
     var mode by remember { mutableStateOf("Login") }
 
     var passwordVisibility: Boolean by remember { mutableStateOf(false) }
+    var keyVisibility: Boolean by remember { mutableStateOf(false) }
     var checkPassVisibility: Boolean by remember { mutableStateOf(false) }
-    var checkKeyVisibility: Boolean by remember { mutableStateOf(false) }
     var pageVis by remember { mutableStateOf(true) }
 
     val configuration = LocalConfiguration.current
@@ -405,7 +405,7 @@ fun Greeting() {
                                         {
                                             Icon(
                                                 painter = painterResource(id = R.drawable.ic_enhanced_encryption),
-                                                contentDescription = "Password"
+                                                contentDescription = "Check password"
                                             )
                                         }
                                     } else {
@@ -435,45 +435,47 @@ fun Greeting() {
                                     } else null
                                 )
                             }
-                            TextField(
-                                modifier = Modifier
-                                    .width(300.dp),
-                                value = key,
-                                onValueChange =
-                                {
-                                        newText -> key = newText
-                                },
-                                label =
-                                {
-                                    Text(
-                                        text = "Key (for admins)"
-                                    )
-                                },
-                                singleLine = true,
-                                visualTransformation = if (checkKeyVisibility || pageLevel > 1) VisualTransformation.None else PasswordVisualTransformation(),
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                                leadingIcon = {
-                                    Icon(
-                                        Icons.Outlined.Build,
-                                        contentDescription = "Admin key"
-                                    )
-                                },
-                                trailingIcon = {
-                                    val image = if (checkKeyVisibility) {
-                                        R.drawable.ic_visibility
-                                    } else {
-                                        R.drawable.ic_visibility_off
-                                    }
-                                    IconButton(onClick = {
-                                        checkKeyVisibility = !checkKeyVisibility
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = image),
-                                            contentDescription = ""
+                            if (pageLevel == 2 || mode == "Login") {
+                                TextField(
+                                    modifier = Modifier
+                                        .width(300.dp),
+                                    value = key,
+                                    onValueChange =
+                                    {
+                                            newText -> key = newText
+                                    },
+                                    label =
+                                    {
+                                        Text(
+                                            text = "Key (for admins)"
                                         )
+                                    },
+                                    singleLine = true,
+                                    visualTransformation = if (keyVisibility || pageLevel > 1) VisualTransformation.None else PasswordVisualTransformation(),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                                    leadingIcon = {
+                                        Icon(
+                                            Icons.Outlined.Build,
+                                            contentDescription = "Admin key"
+                                        )
+                                    },
+                                    trailingIcon = {
+                                        val image = if (keyVisibility) {
+                                            R.drawable.ic_visibility
+                                        } else {
+                                            R.drawable.ic_visibility_off
+                                        }
+                                        IconButton(onClick = {
+                                            keyVisibility = !keyVisibility
+                                        }) {
+                                            Icon(
+                                                painter = painterResource(id = image),
+                                                contentDescription = ""
+                                            )
+                                        }
                                     }
-                                }
-                            )
+                                )
+                            }
                         } else {
                             Row (
                                 Modifier

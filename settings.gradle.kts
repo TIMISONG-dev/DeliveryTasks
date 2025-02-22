@@ -27,7 +27,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MyTasks"
+rootProject.name = "DeliveryTasks"
 include(":app")
 include(":desktopApp")
  

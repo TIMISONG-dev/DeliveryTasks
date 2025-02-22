@@ -2,17 +2,17 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "timisongdev.mytasks"
-    compileSdk = 34
+    namespace = "timisongdev.deliverytasks"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "timisongdev.mytasks"
+        applicationId = "timisongdev.deliverytasks"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.1"
 
@@ -56,17 +56,17 @@ android {
 
 
 dependencies {
-    implementation("com.google.accompanist:accompanist-insets:0.28.0")
-    implementation("com.yandex.android:maps.mobile:4.8.0-full")
-    implementation("io.coil-kt:coil-compose:2.0.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
-    implementation("androidx.datastore:datastore-preferences-rxjava2:1.1.1")
-    implementation("androidx.datastore:datastore-preferences-rxjava3:1.1.1")
+    implementation(libs.accompanist.insets)
+    implementation(libs.maps.mobile)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.preferences.rxjava2)
+    implementation(libs.androidx.datastore.preferences.rxjava3)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

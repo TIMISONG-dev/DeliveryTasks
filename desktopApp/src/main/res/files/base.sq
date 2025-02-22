@@ -1,0 +1,6 @@
+create table CourierBag (
+    id text primary key,
+    type text,
+    quantity integer,
+    status text
+)

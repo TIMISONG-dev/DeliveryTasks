@@ -1,20 +1,43 @@
 [versions]
-agp = "8.4.2"
-kotlin = "2.0.0"
-coreKtx = "1.13.1"
+accompanistInsets = "0.28.0"
+agp = "8.8.1"
+animation = "1.7.3"
+coilCompose = "2.0.0"
+datastorePreferences = "1.1.2"
+kotlin = "2.0.21"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.6"
-activityCompose = "1.9.3"
-composeBom = "2024.10.00"
+kotlinxCoroutinesCore = "1.10.1"
+kotlinxSerializationJson = "1.8.0"
+ktorClientCio = "3.0.3"
+ktorClientContentNegotiation = "3.0.3"
+ktorClientCore = "3.0.3"
+ktorClientJava = "3.0.3"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.10.0"
+composeBom = "2025.02.00"
 appcompat = "1.7.0"
-transportApi = "3.2.0"
-activityKtx = "1.9.3"
-playServicesMaps = "19.0.0"
+mapsMobile = "4.8.0-full"
+roomRuntime = "2.7.0-beta01"
+skikoAwtRuntimeWindowsX64 = "0.9.0"
+transportApi = "4.0.0"
+activityKtx = "1.10.0"
+kotlinCoroutines = "1.10.1"
 
 [libraries]
+accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanistInsets" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-datastore-preferences-rxjava2 = { module = "androidx.datastore:datastore-preferences-rxjava2", version.ref = "datastorePreferences" }
+androidx-datastore-preferences-rxjava3 = { module = "androidx.datastore:datastore-preferences-rxjava3", version.ref = "datastorePreferences" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+animation = { module = "org.jetbrains.compose.animation:animation", version.ref = "animation" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -29,8 +52,18 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientContentNegotiation" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktorClientJava" }
+ktor-json-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref  = "ktorClientCore"}
+maps-mobile = { module = "com.yandex.android:maps.mobile", version.ref = "mapsMobile" }
+skiko-awt-runtime-windows-x64 = { module = "org.jetbrains.skiko:skiko-awt-runtime-windows-x64", version.ref = "skikoAwtRuntimeWindowsX64" }
 transport-api = { group = "com.google.android.datatransport", name = "transport-api", version.ref = "transportApi" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinCoroutines"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

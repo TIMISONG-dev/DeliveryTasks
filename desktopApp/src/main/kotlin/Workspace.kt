@@ -5,8 +5,10 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -16,6 +18,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,6 +44,84 @@ fun getScreenWidth(): Int {
 //    WarehouseDB.Schema.create(driver)
 //    return driver
 //}
+
+data class CourierBag (
+    val id: Int,
+    val name: String,
+    val quantity: Int,
+    val size: String,
+    val weight: Double
+)
+
+@Composable
+fun BagItem(
+    bag: CourierBag,
+    onRemove: () -> Unit,
+    onQuantityChange: (Int) -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        elevation = 4.dp
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(bag.name)
+                Text(
+                    text = "Размер: ${bag.size}, Вес: ${bag.weight} кг",
+                    style = MaterialTheme.typography.caption
+                )
+            }
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Button(onClick = { onQuantityChange(bag.quantity - 1) }) {
+                    Text("-")
+                }
+
+                Text(
+                    text = bag.quantity.toString(),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+
+                Button(onClick = { onQuantityChange(bag.quantity + 1) }) {
+                    Text("+")
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    onClick = onRemove,
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
+                ) {
+                    Text("Удалить")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun BagListScreen(bagManager: CourierBagViewModel) {
+    LazyColumn (
+        Modifier
+            .width(500.dp)
+            .height(500.dp)
+    ){
+        items(bagManager.bags) { bag ->
+            BagItem(
+                bag = bag,
+                onRemove = { bagManager.removeBag(bag.id) },
+                onQuantityChange = { newQuantity ->
+                    bagManager.updateQuantity(bag.id, newQuantity)
+                }
+            )
+        }
+    }
+}
 
 @Composable
 @Preview
@@ -231,6 +312,7 @@ fun GridItem(title: String, index: Int, cells: MutableIntState, openCell: Mutabl
         label = "expanded width"
     )
 
+
     // Показываем либо один выбранный tile Grid или все tiles
     if (openCell.intValue == -1 || openCell.intValue == index) {
         val list = adjustedMap[index] ?: emptyList<Any>()
@@ -292,11 +374,17 @@ fun GridItem(title: String, index: Int, cells: MutableIntState, openCell: Mutabl
                     }
                     if (if (!MainData.support) index == 9 else index == 7) {
                         Column (
+                            Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(Color.White)
+                            ,
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ){
                             Text (
-                                "YOUR INFO:"
+                                "YOUR INFO:",
+                                fontWeight = FontWeight.Bold
                             )
                             Text (
                                 MainData.name,
@@ -311,9 +399,14 @@ fun GridItem(title: String, index: Int, cells: MutableIntState, openCell: Mutabl
                         }
                     }
                     if (if (!MainData.support) index == 4 else index == 2) {
-                        Text(
-                            "Map"
-                        )
+                        if (!MainData.support) {
+                            Text(
+                                "Map"
+                            )
+                        } else {
+                            val bagManager = remember { CourierBagViewModel() }
+                            BagListScreen(bagManager)
+                        }
                         // YandexMap.Mapa()
                     }
                     if (if (!MainData.support) index == 6 else index == 4) {

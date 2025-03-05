@@ -43,6 +43,9 @@ compose.desktop {
             description = "App for Couriers work and Couriers Support"
             vendor = "TIMISONG-dev"
 
+            // If you haven't DirectX12
+            jvmArgs("-Dskiko.renderApi=OPENGL")
+
             windows {
                 menuGroup = "DeliveryTasks"
 
